@@ -1,10 +1,10 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import ProductsList from './components/ProductList.vue'
+import ProductList from './components/ProductList.vue'
 import Product from './components/Product.vue'
 
 const routes = [
   { path: '/', redirect: '/products' },
-  { path: '/products', component: ProductsList },
+  { path: '/products', component: ProductList },
   { path: '/products/:id', component: Product }
 ]
 
