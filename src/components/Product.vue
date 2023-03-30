@@ -1,5 +1,9 @@
 <template>
-  <div   class="card">
+  <div
+    v-if="product"
+    class="card"
+    :class="{ 'max-w-[600px] mx-auto mt-5': $route.params.id }"
+  >
     <div class="card-image">
       <figure class="image is-4by3">
         <img
@@ -25,17 +29,39 @@
         </div>
       </div>
 
-      <slot name="description" />
-      <slot name="footer" />
+      <div v-if="$route.params.id">
+        <div class="-mt-3 mb-4 text-justify">
+          <h2 class="title is-5 text-center">Description</h2>
+          {{ product.description }}
+        </div>
+        <button class="button is-link" @click="router.back()">Back</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-defineProps({
+import { useStore } from "vuex";
+import { useRoute, useRouter } from "vue-router";
+import { computed, onMounted, onUnmounted } from "vue";
+
+const props = defineProps({
   product: {
     type: Object,
     required: true
   }
 })
+
+const store = useStore()
+const route = useRoute()
+const router = useRouter()
+
+const product = computed(() => props.product ||  store.getters.getProduct)
+
+onMounted(() => {
+  if (route.params.id) {
+    store.dispatch('loadProduct', route.params.id)
+  }
+})
+onUnmounted(() => store.commit('setProduct', null))
 </script>
