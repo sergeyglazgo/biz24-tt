@@ -1,6 +1,6 @@
 <template>
   <h1 class="text-5xl font-bold mb-10 mt-2">Product List</h1>
-  <div class="flex justify-center items-center gap-x-2 -mt-4 mb-5">
+  <div class="flex flex-wrap justify-center items-center gap-2 -mt-4 mb-5">
     <span>Filter by:</span>
     <div class="select">
       <select v-model="filterBy">
@@ -40,10 +40,10 @@
 </template>
 
 <script setup>
-import {computed, onMounted, ref, watch} from "vue"
+import { computed, onMounted, ref } from "vue"
 import { useStore } from "vuex"
-import Product from './Product.vue'
 import { useRoute, useRouter } from "vue-router"
+import Product from './Product.vue'
 
 const route = useRoute()
 const router = useRouter()
